@@ -53,6 +53,7 @@
             return Object.keys(this.selectedItems); // Retorna IDs dos itens selecionados
         }
     }
+
     class PageControl {
         constructor(containerSelector) {
             this.container = doc.querySelector(containerSelector);
@@ -107,19 +108,19 @@
 
     // Instância do SvgCarac
     const svgCarac = new SvgCarac("#mpBrasil", "rgb(14, 13, 13)", "rgb(252, 252, 252)",
-        (id, isSelected) => {
+        async (id, isSelected) => {
             if (isSelected) {
-                // Cria uma página ao selecionar
-                pageControl.addPage(`Item ${id}`, `<h1>Detalhes do ${id}</h1><p>Conteúdo gerado dinamicamente.</p>`);
+                try {
+                    // Requisição ao servidor backend para buscar dados do estado
+                    const response = await fetch(`/estado/${id}`);
+                    const data = await response.json();
+                    pageControl.addPage(`Item ${id}`, `<h1>Detalhes do ${data.codigo}</h1><p>${data.descricao}</p><p>${data.observacao}</p>`);
+                } catch (err) {
+                    console.error('Erro ao buscar dados:', err);
+                }
             } else {
-                // Remove a página ao desmarcar
                 pageControl.removePage(`Item ${id}`);
             }
         });
-
-    // Teste: Obter itens selecionados
-    /* doc.querySelector('#mpBrasil').addEventListener('click', () => {
-         console.log(`Itens selecionados: ${svgCarac.getSelectedItems().join(', ')}`);
-     });*/
 
 })(window, document);
