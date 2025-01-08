@@ -7,7 +7,7 @@
             this.corLinha = corLinha;
             this.corFundo = corFundo;
             this.FCOLOR = corFundo;
-            this.FCOLOR_CLICK = "rgb(114, 139, 163)";
+            this.FCOLOR_CLICK =  "rgba(14, 128, 90, 0.74)";
 
             this.svg = document.querySelector(idSvg);
             this.svg.style.stroke = corLinha;
@@ -107,7 +107,7 @@
     const pageControl = new PageControl('.pagecontrol');
 
     // Instância do SvgCarac
-    const svgCarac = new SvgCarac("#mpBrasil", "rgb(14, 13, 13)", "rgb(252, 252, 252)",
+    const svgCarac = new SvgCarac("#mpBrasil", "rgb(248, 252, 250)", "rgb(85, 228, 180)",
         async (id, isSelected) => {
             if (isSelected) {
                 try {
