@@ -7,7 +7,7 @@
             this.corLinha = corLinha;
             this.corFundo = corFundo;
             this.FCOLOR = corFundo;
-            this.FCOLOR_CLICK =  "rgba(14, 128, 90, 0.74)";
+            this.FCOLOR_CLICK = "rgb(74, 163, 93)";
 
             this.svg = document.querySelector(idSvg);
             this.svg.style.stroke = corLinha;
@@ -103,20 +103,34 @@
         }
     }
 
+    // Função para mostrar o indicador de carregamento
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+    }
+
+    // Função para esconder o indicador de carregamento
+    function hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+    }
+
     // Instância do PageControl
     const pageControl = new PageControl('.pagecontrol');
 
     // Instância do SvgCarac
-    const svgCarac = new SvgCarac("#mpBrasil", "rgb(248, 252, 250)", "rgb(85, 228, 180)",
+    const svgCarac = new SvgCarac("#mpBrasil", "rgb(243, 245, 243)", "rgb(143, 218, 159)",
         async (id, isSelected) => {
             if (isSelected) {
+                showLoading(); // Mostra o indicador de carregamento
+
                 try {
                     // Requisição ao servidor backend para buscar dados do estado
                     const response = await fetch(`/estado/${id}`);
                     const data = await response.json();
-                    pageControl.addPage(`Item ${id}`, `<h1>Detalhes do ${data.codigo}</h1><p>${data.descricao}</p><p>${data.observacao}</p>`);
+                    pageControl.addPage(`Item ${id}`, `<h3>Detalhes do ${data.codigo}</h3><p>${data.descricao}</p><p>${data.observacao}</p>`);
                 } catch (err) {
                     console.error('Erro ao buscar dados:', err);
+                } finally {
+                    hideLoading(); // Esconde o indicador de carregamento
                 }
             } else {
                 pageControl.removePage(`Item ${id}`);
