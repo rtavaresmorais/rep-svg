@@ -117,7 +117,7 @@
     const pageControl = new PageControl('.pagecontrol');
 
     // Instância do SvgCarac
-    const svgCarac = new SvgCarac("#mpBrasil", "rgb(243, 245, 243)", "rgb(143, 218, 159)",
+    const svgCarac = new SvgCarac("#svgCarro", "rgb(243, 245, 243)", "rgb(143, 218, 159)",
         async (id, isSelected) => {
             if (isSelected) {
                 showLoading(); // Mostra o indicador de carregamento
